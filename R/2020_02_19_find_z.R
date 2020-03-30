@@ -14,23 +14,6 @@ IG_example <- sset_example[[1]]@IG
 result_list <- list()
 result_matrix <- matrix(NA, nrow = dim(merged.mapping.normal)[1])
 
-for (u in 1:length(IG_example)){
-  for (i in 1:dim(merged.mapping.normal)[1]){
-    sset <- lapply(samples_name[c(merged.mapping.normal[,3][i])],readIDATpair)
-    ig <- sset[[1]]@IG
-    mean_ig <- mean(rowSums(ig))
-    std_ig <- sd(rowSums(ig))
-    row_names <- rownames(sset_example[[1]]@IG)[1]
-    z <- (rowSums(ig)[c(row_names)] - mean_ig)/std_ig
-    print(z)
-    result_list[[i]] <- z
-  }
-  matrix_one_sample <- do.call(rbind,result_list) # N*1 z-score for one sample
-  colnames(matrix_one_sample)[u] <- rownames(ig)[u]
-  result_matrix <- cbind(result_matrix, matrix_one_sample)
-  #result_list <- list()
-}
-
 # newest code
 sset <- lapply(samples_name[c(merged.mapping.normal[,3])],readIDATpair)
 
